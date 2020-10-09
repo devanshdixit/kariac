@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "484474837521",
+    "firebase_url": "https://kariac2.firebaseio.com",
+    "project_id": "kariac2",
+    "storage_bucket": "kariac2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484474837521:android:bf9009b1c3dd7353aaefb0",
+        "android_client_info": {
+          "package_name": "com.panaceasoft.flutterbuyandsell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484474837521-mdktdsdvmh4gdps9ug7hb56nubopqimn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.panaceasoft.flutterbuyandsell",
+            "certificate_hash": "11e677d4e09fc98a24501b51cc10e8d84f71515b"
+          }
+        },
+        {
+          "client_id": "484474837521-micj1klr2vg7l8shcfvl7g3tondkk5b4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARk5xrM-x3M5q6f3xTsypemf7xLHOpfWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484474837521-micj1klr2vg7l8shcfvl7g3tondkk5b4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

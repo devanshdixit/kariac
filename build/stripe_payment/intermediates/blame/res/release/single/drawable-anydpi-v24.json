@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\stripe_payment\\intermediates\\res\\merged\\release\\drawable-anydpi-v24\\ic_unionpay_template_32.xml",
+        "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\06c41237c7dfc151e99606f347215a38\\jetified-stripe-android-10.4.6\\res\\drawable-anydpi-v24\\ic_unionpay_template_32.xml"
+    },
+    {
+        "merged": "D:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\stripe_payment\\intermediates\\res\\merged\\release\\drawable-anydpi-v24\\ic_bank_generic.xml",
+        "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\06c41237c7dfc151e99606f347215a38\\jetified-stripe-android-10.4.6\\res\\drawable-anydpi-v24\\ic_bank_generic.xml"
+    },
+    {
+        "merged": "D:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\stripe_payment\\intermediates\\res\\merged\\release\\drawable-anydpi-v24\\ic_arrow.xml",
+        "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\c81853d843f3b071f551f584618c3fbf\\jetified-stripe-3ds2-android-1.2.2\\res\\drawable-anydpi-v24\\ic_arrow.xml"
+    },
+    {
+        "merged": "D:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\stripe_payment\\intermediates\\res\\merged\\release\\drawable-anydpi-v24\\ic_indicator.xml",
+        "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\c81853d843f3b071f551f584618c3fbf\\jetified-stripe-3ds2-android-1.2.2\\res\\drawable-anydpi-v24\\ic_indicator.xml"
+    }
+]

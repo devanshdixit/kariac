@@ -1,0 +1,7 @@
+#Sat Aug 29 13:39:36 IST 2020
+base.0=D\:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\app\\intermediates\\dex\\release\\shrunkDex\\classes.dex
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=D\:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\app\\intermediates\\dex\\release\\shrunkDex\\classes2.dex
