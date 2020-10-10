@@ -40,7 +40,7 @@ class PsConfig {
    static const String iosGoogleAppId = '0:000000000000:ios:0000000000000000000000';
    static const String iosGcmSenderId = '000000000000';
    static const String iosDatabaseUrl = 'https://kariac2.firebaseio.com';
-   static const String iosApiKey = 'AIz000000000000000000000000000000000000';
+   static const String iosApiKey = 'AIzaSyDw4UW54Z54CfoN0KczJsoHBw4VfWJGxc8';
    static const String androidGoogleAppId = '1:484474837521:android:bf9009b1c3dd7353aaefb0';
    static const String androidApiKey = 'AIzaSyARk5xrM-x3M5q6f3xTsypemf7xLHOpfWs';
    static const String androidDatabaseUrl = 'https://kariac2.firebaseio.com';

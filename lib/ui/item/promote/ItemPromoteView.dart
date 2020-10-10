@@ -37,7 +37,7 @@ import 'package:flutterbuyandsell/viewobject/product.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+//import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class ItemPromoteView extends StatefulWidget {
   const ItemPromoteView({Key key, @required this.product}) : super(key: key);
@@ -533,93 +533,93 @@ class AdsHowManyDayWidgetState extends State<AdsHowManyDayWidget> {
               final DateTime dateTime = DateTime.now();
               final int reultStartTimeStamp =
                   Utils.getTimeStampDividedByOneThousand(dateTime);
-              Future<void> _handlePaymentSuccess(
-                  PaymentSuccessResponse response) async {
-                // Do something when payment succeeds
-                print('success');
+              // Future<void> _handlePaymentSuccess(
+              //    // PaymentSuccessResponse response) async {
+              //   // Do something when payment succeeds
+              //   print('success');
 
-                print(response);
+              //   print(response);
 
-                PsProgressDialog.showDialog(context);
-                final ItemPaidHistoryParameterHolder
-                    itemPaidHistoryParameterHolder =
-                    ItemPaidHistoryParameterHolder(
-                        itemId: widget.product.id,
-                        amount: Utils.getPriceFormat(amount),
-                        howManyDay: howManyDay,
-                        paymentMethod: PsConst.PAYMENT_RAZOR_METHOD,
-                        paymentMethodNounce: '',
-                        startDate: startDate,
-                        startTimeStamp: reultStartTimeStamp.toString(),
-                        razorId: response.paymentId);
+              //   PsProgressDialog.showDialog(context);
+              //   final ItemPaidHistoryParameterHolder
+              //       itemPaidHistoryParameterHolder =
+              //       ItemPaidHistoryParameterHolder(
+              //           itemId: widget.product.id,
+              //           amount: Utils.getPriceFormat(amount),
+              //           howManyDay: howManyDay,
+              //           paymentMethod: PsConst.PAYMENT_RAZOR_METHOD,
+              //           paymentMethodNounce: '',
+              //           startDate: startDate,
+              //           startTimeStamp: reultStartTimeStamp.toString(),
+              //           razorId: response.paymentId);
 
-                // progressDialog.show();
-                // PsProgressDialog.showDialog(context);
+              //   // progressDialog.show();
+              //   // PsProgressDialog.showDialog(context);
 
-                final PsResource<ItemPaidHistory> paidHistoryData =
-                    await provider.postItemHistoryEntry(
-                        itemPaidHistoryParameterHolder.toMap());
+              //   final PsResource<ItemPaidHistory> paidHistoryData =
+              //       await provider.postItemHistoryEntry(
+              //           itemPaidHistoryParameterHolder.toMap());
 
-                if (paidHistoryData.data != null) {
-                  // progressDialog.dismiss();
-                  // PsProgressDialog.dismissDialog();
-                  showDialog<dynamic>(
-                      context: context,
-                      builder: (BuildContext contet) {
-                        return SuccessDialog(
-                          message:
-                              Utils.getString(context, 'item_promote__success'),
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                        );
-                      });
-                } else {
-                  PsProgressDialog.dismissDialog();
-                  showDialog<dynamic>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ErrorDialog(
-                          message: paidHistoryData.message,
-                        );
-                      });
-                }
-              }
+              //   if (paidHistoryData.data != null) {
+              //     // progressDialog.dismiss();
+              //     // PsProgressDialog.dismissDialog();
+              //     showDialog<dynamic>(
+              //         context: context,
+              //         builder: (BuildContext contet) {
+              //           return SuccessDialog(
+              //             message:
+              //                 Utils.getString(context, 'item_promote__success'),
+              //             onPressed: () {
+              //               Navigator.of(context).pop(true);
+              //             },
+              //           );
+              //         });
+              //   } else {
+              //     PsProgressDialog.dismissDialog();
+              //     showDialog<dynamic>(
+              //         context: context,
+              //         builder: (BuildContext context) {
+              //           return ErrorDialog(
+              //             message: paidHistoryData.message,
+              //           );
+              //         });
+              //   }
+              // }
 
-              void _handlePaymentError(PaymentFailureResponse response) {
-                // Do something when payment fails
-                print('error');
-                showDialog<dynamic>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ErrorDialog(
-                        message:
-                            Utils.getString(context, 'checkout__payment_fail'),
-                      );
-                    });
-              }
+              // void _handlePaymentError(PaymentFailureResponse response) {
+              //   // Do something when payment fails
+              //   print('error');
+              //   showDialog<dynamic>(
+              //       context: context,
+              //       builder: (BuildContext context) {
+              //         return ErrorDialog(
+              //           message:
+              //               Utils.getString(context, 'checkout__payment_fail'),
+              //         );
+              //       });
+              // }
 
-              void _handleExternalWallet(ExternalWalletResponse response) {
-                // Do something when an external wallet is selected
-                print('external wallet');
-                showDialog<dynamic>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ErrorDialog(
-                        message: Utils.getString(
-                            context, 'checkout__payment_not_supported'),
-                      );
-                    });
-              }
+              // void _handleExternalWallet(ExternalWalletResponse response) {
+              //   // Do something when an external wallet is selected
+              //   print('external wallet');
+              //   showDialog<dynamic>(
+              //       context: context,
+              //       builder: (BuildContext context) {
+              //         return ErrorDialog(
+              //           message: Utils.getString(
+              //               context, 'checkout__payment_not_supported'),
+              //         );
+              //       });
+              // }
 
               if (provider != null) {
                 // Start Razor Payment
-                final Razorpay _razorpay = Razorpay();
-                _razorpay.on(
-                    Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-                _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-                _razorpay.on(
-                    Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+                // final Razorpay _razorpay = Razorpay();
+                // _razorpay.on(
+                //     Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+                // _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+                // _razorpay.on(
+                //     Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 
                 final Map<String, Object> options = <String, Object>{
                   'key': appInfoProvider.appInfo.data.razorKey,
@@ -638,7 +638,7 @@ class AdsHowManyDayWidgetState extends State<AdsHowManyDayWidget> {
                 };
 
                 if (await Utils.checkInternetConnectivity()) {
-                  _razorpay.open(options);
+                // _razorpay.open(options);
                 } else {
                   showDialog<dynamic>(
                       context: context,
