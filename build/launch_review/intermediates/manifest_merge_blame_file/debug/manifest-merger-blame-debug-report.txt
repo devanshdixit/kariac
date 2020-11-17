@@ -3,6 +3,6 @@
 3    package="com.iyaffle.launchreview" >
 4
 5    <uses-sdk android:minSdkVersion="16" />
-5-->D:\flutter\.pub-cache\hosted\pub.dartlang.org\launch_review-2.0.0\android\src\main\AndroidManifest.xml
+5-->C:\Users\devan\AppData\Local\Pub\Cache\hosted\pub.dartlang.org\launch_review-2.0.0\android\src\main\AndroidManifest.xml
 6
 7</manifest>

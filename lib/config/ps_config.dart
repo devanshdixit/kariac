@@ -23,32 +23,32 @@ class PsConfig {
   /// API URL
   /// Change your backend url
   ///
-  static const String ps_app_url =
-      'http://kariac.apptests.online/index.php/';
+  static const String ps_app_url = 'https://kariac.apptests.online/index.php/';
 
   static const String ps_app_image_url =
-      'http://kariac.apptests.online/uploads/';
+      'https://kariac.apptests.online/uploads/';
 
   static const String ps_app_image_thumbs_url =
-      'http://kariac.apptests.online/uploads/thumbnail/';
+      'https://kariac.apptests.online/uploads/thumbnail/';
 
   ///
   /// Chat Setting
   ///
 
-
-   static const String iosGoogleAppId = '0:000000000000:ios:0000000000000000000000';
-   static const String iosGcmSenderId = '000000000000';
-   static const String iosDatabaseUrl = 'https://kariac2.firebaseio.com';
-   static const String iosApiKey = 'AIzaSyDw4UW54Z54CfoN0KczJsoHBw4VfWJGxc8';
-   static const String androidGoogleAppId = '1:484474837521:android:bf9009b1c3dd7353aaefb0';
-   static const String androidApiKey = 'AIzaSyARk5xrM-x3M5q6f3xTsypemf7xLHOpfWs';
-   static const String androidDatabaseUrl = 'https://kariac2.firebaseio.com';
+  static const String iosGoogleAppId =
+      '0:000000000000:ios:0000000000000000000000';
+  static const String iosGcmSenderId = '000000000000';
+  static const String iosDatabaseUrl = 'https://kariac2.firebaseio.com';
+  static const String iosApiKey = 'AIzaSyDw4UW54Z54CfoN0KczJsoHBw4VfWJGxc8';
+  static const String androidGoogleAppId =
+      '1:484474837521:android:bf9009b1c3dd7353aaefb0';
+  static const String androidApiKey = 'AIzaSyARk5xrM-x3M5q6f3xTsypemf7xLHOpfWs';
+  static const String androidDatabaseUrl = 'https://kariac2.firebaseio.com';
 
   ///
   /// Facebook Key
   ///
- 
+
   static const String fbKey = '000000000000000';
 
   ///
@@ -56,10 +56,10 @@ class PsConfig {
   ///
   static bool showAdMob = true;
   static String androidAdMobAdsIdKey = 'ca-app-pub-0000000000000000~0000000000';
-  static String androidAdMobUnitIdApiKey = 'ca-app-pub-0000000000000000/0000000000';
+  static String androidAdMobUnitIdApiKey =
+      'ca-app-pub-0000000000000000/0000000000';
   static String iosAdMobAdsIdKey = 'ca-app-pub-0000000000000000~0000000000';
   static String iosAdMobUnitIdApiKey = 'ca-app-pub-0000000000000000/0000000000';
-  
 
   ///
   /// Animation Duration

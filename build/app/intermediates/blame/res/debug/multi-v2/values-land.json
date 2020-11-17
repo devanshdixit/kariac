@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Flutter-BuySell(v1.5)\\Mobile Source\\flutterbuyandsell\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "D:\\projects\\kariac\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\bf3223f0ecaf6bb54272664071878b3a\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\devan\\.gradle\\caches\\transforms-2\\files-2.1\\bf3223f0ecaf6bb54272664071878b3a\\material-1.0.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\5373c42c6f1dcd50a0ee74b7850c257f\\jetified-drop-in-4.5.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\devan\\.gradle\\caches\\transforms-2\\files-2.1\\d1a81fc1b23e2467d635bf58fbde1cf1\\jetified-drop-in-4.5.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5,6",
                         "startColumns": "4,4,4,4,4",
@@ -40,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\c1d1fd0707ceb58863fa6253d82053e8\\appcompat-1.1.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\devan\\.gradle\\caches\\transforms-2\\files-2.1\\c1d1fd0707ceb58863fa6253d82053e8\\appcompat-1.1.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -50,7 +50,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\sonin\\.gradle\\caches\\transforms-2\\files-2.1\\688266ce3c8d53dcda517fcfe933b72d\\jetified-card-form-4.2.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\devan\\.gradle\\caches\\transforms-2\\files-2.1\\688266ce3c8d53dcda517fcfe933b72d\\jetified-card-form-4.2.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",

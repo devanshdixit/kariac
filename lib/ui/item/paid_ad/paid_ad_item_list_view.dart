@@ -5,6 +5,7 @@ import 'package:flutterbuyandsell/provider/product/paid_id_item_provider.dart';
 import 'package:flutterbuyandsell/repository/paid_ad_item_repository.dart';
 import 'package:flutterbuyandsell/ui/common/ps_ui_widget.dart';
 import 'package:flutterbuyandsell/ui/item/paid_ad/paid_ad_item_vertical_list_item.dart';
+import 'package:flutterbuyandsell/ui/payment/payment.dart';
 import 'package:flutterbuyandsell/viewobject/common/ps_value_holder.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -43,6 +44,12 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
     super.initState();
   }
 
+  double amount;
+
+  String gold = '4,999',
+      diamond = '9,999',
+      platinum = '19,999',
+      rubbi = '59,999';
   PaidAdItemRepository repo1;
   PsValueHolder psValueHolder;
   dynamic data;
@@ -152,73 +159,345 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
             // ]);
             return Stack(children: <Widget>[
               Container(
-                  margin: const EdgeInsets.only(
-                      left: PsDimens.space8,
-                      right: PsDimens.space8,
-                      top: PsDimens.space8,
-                      bottom: PsDimens.space8),
-                  child: RefreshIndicator(
-                    child: CustomScrollView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        slivers: <Widget>[
-                          SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                                if (provider.paidAdItemList.data != null ||
-                                    provider.paidAdItemList.data.isNotEmpty) {
-                                  final int count =
-                                      provider.paidAdItemList.data.length;
-                                  return PaidAdItemVerticalListItem(
-                                    animationController:
-                                        widget.animationController,
-                                    animation:
-                                        Tween<double>(begin: 0.0, end: 1.0)
-                                            .animate(
-                                      CurvedAnimation(
-                                        parent: widget.animationController,
-                                        curve: Interval(
-                                            (1 / count) * index, 1.0,
-                                            curve: Curves.fastOutSlowIn),
+                margin: const EdgeInsets.only(
+                    left: PsDimens.space8,
+                    right: PsDimens.space8,
+                    top: PsDimens.space8,
+                    bottom: PsDimens.space8),
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Card(
+                          elevation: 10,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Gold',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
                                       ),
                                     ),
-                                    paidAdItem:
-                                        provider.paidAdItemList.data[index],
-                                    onTap: () {
-                                      final ProductDetailIntentHolder holder =
-                                          ProductDetailIntentHolder(
-                                              product: provider.paidAdItemList
-                                                  .data[index].item,
-                                              heroTagImage:
-                                                  provider.hashCode.toString() +
-                                                      provider.paidAdItemList
-                                                          .data[index].item.id +
-                                                      PsConst.HERO_TAG__IMAGE,
-                                              heroTagTitle:
-                                                  provider.hashCode.toString() +
-                                                      provider.paidAdItemList
-                                                          .data[index].item.id +
-                                                      PsConst.HERO_TAG__TITLE);
-                                      Navigator.pushNamed(
-                                          context, RoutePaths.productDetail,
-                                          arguments: holder);
-                                    },
-                                  );
-                                } else {
-                                  return null;
-                                }
-                              },
-                              childCount: provider.paidAdItemList.data.length,
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'images/ncur.png',
+                                            height: 15,
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            gold,
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    RaisedButton(
+                                      color: Colors.red,
+                                      child: Text(
+                                        'Buy Now',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          amount = 4999;
+                                        });
+                                        Navigator.push<MaterialPageRoute>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeWidget(
+                                              amount: amount,
+                                            ),
+                                          ),
+                                        );
+                                        // Navigator.of(context)
+                                        //     .push(
+                                        //         MaterialPageRoute(
+                                        //   builder: (context) =>
+                                        //       HomeWidget(
+                                        //     amount: amount,
+                                        //     status: (response) {
+                                        //       print(response);
+                                        //     },
+                                        //   ),
+                                        // ));
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
-                        ]),
-                    onRefresh: () async {
-                      return _paidAdItemProvider.resetPaidAdItemList(
-                          provider.psValueHolder.loginUserId);
-                    },
-                  )),
-              PSProgressIndicator(provider.paidAdItemList.status)
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Card(
+                          elevation: 10,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Diamond',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'images/ncur.png',
+                                            height: 15,
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            diamond,
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    RaisedButton(
+                                      color: Colors.red,
+                                      child: Text(
+                                        'Buy Now',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          amount = 9999;
+                                        });
+                                        Navigator.push<MaterialPageRoute>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeWidget(
+                                              amount: amount,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Card(
+                          elevation: 10,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Platinum',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'images/ncur.png',
+                                            height: 15,
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            platinum,
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    RaisedButton(
+                                      color: Colors.red,
+                                      child: Text(
+                                        'Buy Now',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          amount = 19999;
+                                        });
+                                        Navigator.push<MaterialPageRoute>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeWidget(
+                                              amount: amount,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: Card(
+                          elevation: 10,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Rubbi',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'images/ncur.png',
+                                            height: 15,
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            rubbi,
+                                            style: TextStyle(fontSize: 20),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    RaisedButton(
+                                      color: Colors.red,
+                                      child: Text(
+                                        'Buy Now',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          amount = 59999;
+                                        });
+                                        Navigator.push<MaterialPageRoute>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeWidget(
+                                              amount: amount,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                // if (provider.paidAdItemList.data != null ||
+                //     provider.paidAdItemList.data.isNotEmpty) {
+                //   final int count =
+                //       provider.paidAdItemList.data.length;
+                //   return PaidAdItemVerticalListItem(
+                //     animationController:
+                //         widget.animationController,
+                //     animation:
+                //         Tween<double>(begin: 0.0, end: 1.0)
+                //             .animate(
+                //       CurvedAnimation(
+                //         parent: widget.animationController,
+                //         curve: Interval(
+                //             (1 / count) * index, 1.0,
+                //             curve: Curves.fastOutSlowIn),
+                //       ),
+                //     ),
+                //     paidAdItem:
+                //         provider.paidAdItemList.data[index],
+                //     onTap: () {
+                //       final ProductDetailIntentHolder holder =
+                //           ProductDetailIntentHolder(
+                //               product: provider.paidAdItemList
+                //                   .data[index].item,
+                //               heroTagImage:
+                //                   provider.hashCode.toString() +
+                //                       provider.paidAdItemList
+                //                           .data[index].item.id +
+                //                       PsConst.HERO_TAG__IMAGE,
+                //               heroTagTitle:
+                //                   provider.hashCode.toString() +
+                //                       provider.paidAdItemList
+                //                           .data[index].item.id +
+                //                       PsConst.HERO_TAG__TITLE);
+                //       Navigator.pushNamed(
+                //           context, RoutePaths.productDetail,
+                //           arguments: holder);
+                //     },
+                //   );
+                // } else {
+                //   return null;
+                // }
+              )
             ]);
           },
           // ),
