@@ -23,13 +23,13 @@ class PsConfig {
   /// API URL
   /// Change your backend url
   ///
-  static const String ps_app_url = 'https://kariac.apptests.online/index.php/';
+  static const String ps_app_url = 'http://kariac.apptests.online/index.php/';
 
   static const String ps_app_image_url =
-      'https://kariac.apptests.online/uploads/';
+      'http://kariac.apptests.online/uploads/';
 
   static const String ps_app_image_thumbs_url =
-      'https://kariac.apptests.online/uploads/thumbnail/';
+      'http://kariac.apptests.online/uploads/thumbnail/';
 
   ///
   /// Chat Setting

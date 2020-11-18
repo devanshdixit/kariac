@@ -49,7 +49,8 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
   String gold = '4,999',
       diamond = '9,999',
       platinum = '19,999',
-      rubbi = '59,999';
+      rubbi = '59,999',
+      ncur = 'assets/images/ncur.png';
   PaidAdItemRepository repo1;
   PsValueHolder psValueHolder;
   dynamic data;
@@ -191,7 +192,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       child: Row(
                                         children: [
                                           Image.asset(
-                                            'images/ncur.png',
+                                            ncur,
                                             height: 15,
                                             width: 20,
                                           ),
@@ -271,7 +272,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       child: Row(
                                         children: [
                                           Image.asset(
-                                            'images/ncur.png',
+                                            ncur,
                                             height: 15,
                                             width: 20,
                                           ),
@@ -340,7 +341,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       child: Row(
                                         children: [
                                           Image.asset(
-                                            'images/ncur.png',
+                                            ncur,
                                             height: 15,
                                             width: 20,
                                           ),
@@ -409,7 +410,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       child: Row(
                                         children: [
                                           Image.asset(
-                                            'images/ncur.png',
+                                            ncur,
                                             height: 15,
                                             width: 20,
                                           ),
