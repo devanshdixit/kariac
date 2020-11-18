@@ -89,3 +89,46 @@ class ProfileUpdateParameterHolder
     return key;
   }
 }
+
+class ProfilePremiumUpdateParameterHolder
+    extends PsHolder<ProfilePremiumUpdateParameterHolder> {
+  ProfilePremiumUpdateParameterHolder({
+    @required this.userId,
+    @required this.premium,
+  });
+
+  final String userId;
+  final String premium;
+
+  @override
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = <String, dynamic>{};
+
+    map['user_id'] = userId;
+    map['premium_user'] = premium;
+
+    return map;
+  }
+
+  @override
+  ProfilePremiumUpdateParameterHolder fromMap(dynamic dynamicData) {
+    return ProfilePremiumUpdateParameterHolder(
+      userId: dynamicData['user_id'],
+      premium: dynamicData['premium_user'],
+    );
+  }
+
+  @override
+  String getParamKey() {
+    String key = '';
+
+    if (userId != '') {
+      key += userId;
+    }
+    if (premium != '') {
+      key += premium;
+    }
+
+    return key;
+  }
+}

@@ -345,6 +345,26 @@ class UserRepository extends PsRepository {
     }
   }
 
+  Future<PsResource<User>> postPremium(Map<dynamic, dynamic> jsonMap,
+      bool isConnectedToInternet, PsStatus status,
+      {bool isLoadFromServer = true}) async {
+    final PsResource<User> _resource = await _psApiService.postPremium(jsonMap);
+    if (_resource.status == PsStatus.SUCCESS) {
+      await _userLoginDao.deleteAll();
+      await insert(_resource.data);
+      final String userId = _resource.data.userId;
+      final UserLogin userLogin =
+          UserLogin(id: userId, login: true, user: _resource.data);
+      await insertUserLogin(userLogin);
+      return _resource;
+    } else {
+      final Completer<PsResource<User>> completer =
+          Completer<PsResource<User>>();
+      completer.complete(_resource);
+      return completer.future;
+    }
+  }
+
   Future<PsResource<ApiStatus>> postResendCode(Map<dynamic, dynamic> jsonMap,
       bool isConnectedToInternet, PsStatus status,
       {bool isLoadFromServer = true}) async {

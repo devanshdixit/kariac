@@ -304,7 +304,59 @@ class Users extends API_Controller
 	/**
 	* User Profile Update
 	*/
+	function premium_user()
+	{
 
+		// validation rules for user register
+		$rules = array(
+			array(
+	        	'field' => 'user_id',
+	        	'rules' => 'required'
+	        ),
+	        array(
+	        	'field' => 'premium_user',
+	        	'rules' => 'required'
+	        ),
+        );
+
+		// exit if there is an error in validation,
+        if ( !$this->is_valid( $rules )) exit;
+
+        $user_id = $this->post('user_id');
+        // user email checking
+        $premium_user = $this->User->get_one($user_id)->premium_user;
+        if ($premium_user == $this->post('premium_user')) {
+        	$premium_user = $this->post('premium_user');
+        } else {
+        	$conds['premium_user'] = $this->post('premium_user');
+        	$conds['status'] = 1;
+       		$user_infos = $this->User->user_exists($conds)->result();
+        	if (empty($user_infos)) {
+        		$email = $this->post( 'premium_user' );
+        	} else {
+        		
+		    	$this->error_response( get_msg( 'err_premium_user_exist' ));
+		    }
+		 
+        }
+
+        
+		 
+        }
+        
+        $user_data = array(
+        	"premium_user"     => $this->post('premium_user'), 
+        );
+        // print_r($user_data);die;
+
+        if ( !$this->User->save($user_data, $this->post('user_id'))) {
+
+        	$this->error_response( get_msg( 'err_user_update' ));
+        }
+
+        $this->success_response( get_msg( 'success_profile_update' ));
+
+	}
 	function profile_update_post()
 	{
 

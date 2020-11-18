@@ -101,6 +101,11 @@ class PsApiService extends PsApi {
     return await postData<User, User>(User(), url, jsonMap);
   }
 
+  Future<PsResource<User>> postPremium(Map<dynamic, dynamic> jsonMap) async {
+    const String url = '${PsUrl.ps_post_premium}';
+    return await postData<User, User>(User(), url, jsonMap);
+  }
+
   ///
   /// User Forgot Password
   ///

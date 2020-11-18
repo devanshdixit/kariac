@@ -1,7 +1,9 @@
+import 'package:flutterbuyandsell/api/common/ps_resource.dart';
 import 'package:flutterbuyandsell/constant/ps_constants.dart';
 import 'package:flutterbuyandsell/constant/ps_dimens.dart';
 import 'package:flutterbuyandsell/constant/route_paths.dart';
 import 'package:flutterbuyandsell/provider/product/paid_id_item_provider.dart';
+import 'package:flutterbuyandsell/provider/user/user_provider.dart';
 import 'package:flutterbuyandsell/repository/paid_ad_item_repository.dart';
 import 'package:flutterbuyandsell/ui/common/ps_ui_widget.dart';
 import 'package:flutterbuyandsell/ui/item/paid_ad/paid_ad_item_vertical_list_item.dart';
@@ -11,6 +13,9 @@ import 'package:flutterbuyandsell/viewobject/common/ps_value_holder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbuyandsell/viewobject/holder/intent_holder/product_detail_intent_holder.dart';
+import 'package:flutterbuyandsell/viewobject/holder/profile_update_view_holder.dart';
+import 'package:flutterbuyandsell/viewobject/user.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class PaidAdItemListView extends StatefulWidget {
@@ -46,6 +51,8 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
 
   double amount;
 
+  UserProvider userProvider;
+
   String gold = '4,999',
       diamond = '9,999',
       platinum = '19,999',
@@ -59,11 +66,27 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
     // data = EasyLocalizationProvider.of(context).data;
     repo1 = Provider.of<PaidAdItemRepository>(context);
     psValueHolder = Provider.of<PsValueHolder>(context);
+    print('######### ${psValueHolder.loginUserId}');
     print(
         '............................Build UI Again ............................');
     // return EasyLocalizationProvider(
     //     data: data,
     //     child:
+
+    Future postData(String premium) async {
+      final ProfilePremiumUpdateParameterHolder profileUpdateParameterHolder =
+          ProfilePremiumUpdateParameterHolder(
+        userId: userProvider.user.data.userId,
+        premium: premium,
+      );
+      final PsResource<User> _apiStatus =
+          await userProvider.postPremium(profileUpdateParameterHolder.toMap());
+      if (_apiStatus.data != null) {
+        // progressDialog.dismiss();
+        print('${_apiStatus.data}');
+      }
+    }
+
     return ChangeNotifierProvider<PaidAdItemProvider>(
         lazy: false,
         create: (BuildContext context) {
@@ -223,10 +246,13 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                           MaterialPageRoute(
                                             builder: (context) => HomeWidget(
                                               amount: amount,
+                                              status: (dynamic response) {
+                                                postData('gold');
+                                              },
                                             ),
                                           ),
                                         );
-                                        // Navigator.of(context)
+                                        // Navigator.of(context)`
                                         //     .push(
                                         //         MaterialPageRoute(
                                         //   builder: (context) =>

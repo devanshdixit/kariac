@@ -9,8 +9,8 @@ import 'package:flutterbuyandsell/ui/payment/vendor_widget.dart';
 import 'package:rave_flutter/rave_flutter.dart';
 
 class HomeWidget extends StatefulWidget {
-  double amount;
-  Function status;
+  final double amount;
+  final Function status;
   HomeWidget({this.amount, this.status});
   @override
   _HomeWidgetState createState() => _HomeWidgetState();

@@ -113,6 +113,9 @@ class PsUrl {
   static const String ps_post_ps_apple_login_url =
       'rest/users/apple_register/api_key/${PsConfig.ps_api_key}';
 
+  static const String ps_post_premium =
+      'rest/users/premium_user/api_key/${PsConfig.ps_api_key}';
+
   static const String ps_post_ps_resend_code_url =
       'rest/users/request_code/api_key/${PsConfig.ps_api_key}/';
 

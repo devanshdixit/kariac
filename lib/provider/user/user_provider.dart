@@ -239,6 +239,19 @@ class UserProvider extends PsProvider {
     return _user;
   }
 
+  Future<dynamic> postPremium(
+    Map<dynamic, dynamic> jsonMap,
+  ) async {
+    isLoading = true;
+
+    isConnectedToInternet = await Utils.checkInternetConnectivity();
+
+    _user = await _repo.postAppleLogin(
+        jsonMap, isConnectedToInternet, PsStatus.PROGRESS_LOADING);
+
+    return _user;
+  }
+
   Future<dynamic> postGoogleLogin(
     Map<dynamic, dynamic> jsonMap,
   ) async {
