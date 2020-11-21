@@ -61,6 +61,8 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
   PaidAdItemRepository repo1;
   PsValueHolder psValueHolder;
   dynamic data;
+
+  String userId = '';
   @override
   Widget build(BuildContext context) {
     // data = EasyLocalizationProvider.of(context).data;
@@ -74,6 +76,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
     //     child:
 
     Future postData(String premium) async {
+      userId = userProvider.user.data.userId;
       final ProfilePremiumUpdateParameterHolder profileUpdateParameterHolder =
           ProfilePremiumUpdateParameterHolder(
         userId: userProvider.user.data.userId,
@@ -246,9 +249,8 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                           MaterialPageRoute(
                                             builder: (context) => HomeWidget(
                                               amount: amount,
-                                              status: (dynamic response) {
-                                                postData('gold');
-                                              },
+                                              status: 'gold',
+                                              userId: psValueHolder.loginUserId,
                                             ),
                                           ),
                                         );

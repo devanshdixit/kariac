@@ -3,15 +3,20 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterbuyandsell/api/common/ps_resource.dart';
+import 'package:flutterbuyandsell/provider/user/user_provider.dart';
 import 'package:flutterbuyandsell/ui/payment/button_widget.dart';
 import 'package:flutterbuyandsell/ui/payment/switch_widget.dart';
 import 'package:flutterbuyandsell/ui/payment/vendor_widget.dart';
+import 'package:flutterbuyandsell/viewobject/holder/profile_update_view_holder.dart';
+import 'package:flutterbuyandsell/viewobject/user.dart';
 import 'package:rave_flutter/rave_flutter.dart';
 
 class HomeWidget extends StatefulWidget {
   final double amount;
-  final Function status;
-  HomeWidget({this.amount, this.status});
+  final String status;
+  final String userId;
+  HomeWidget({this.amount, this.status, this.userId});
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
@@ -43,7 +48,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   String country;
   String firstName;
   String lastName;
-
+  UserProvider userProvider;
+  String userId = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -255,6 +261,21 @@ class _HomeWidgetState extends State<HomeWidget> {
     startPayment();
   }
 
+  Future postData(String premium) async {
+    final ProfilePremiumUpdateParameterHolder profileUpdateParameterHolder =
+        ProfilePremiumUpdateParameterHolder(
+      userId: widget.userId,
+      premium: widget.status,
+    );
+    final PsResource<User> _apiStatus =
+        await userProvider.postPremium(profileUpdateParameterHolder.toMap());
+    if (_apiStatus.data != null) {
+      // progressDialog.dismiss();
+      print('${_apiStatus.data}');
+      Navigator.of(context).pop();
+    }
+  }
+
   void startPayment() async {
     var initializer = RavePayInitializer(
         amount: amount,
@@ -291,8 +312,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     scaffoldKey.currentState
         .showSnackBar(SnackBar(content: Text(response?.message)));
     if (response.status == RaveStatus.success) {
-      widget.status(response);
-      Navigator.of(context).pop();
+      postData(widget.status);
     }
   }
 }

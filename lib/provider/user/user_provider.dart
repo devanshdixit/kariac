@@ -246,7 +246,7 @@ class UserProvider extends PsProvider {
 
     isConnectedToInternet = await Utils.checkInternetConnectivity();
 
-    _user = await _repo.postAppleLogin(
+    _user = await _repo.postPremium(
         jsonMap, isConnectedToInternet, PsStatus.PROGRESS_LOADING);
 
     return _user;
