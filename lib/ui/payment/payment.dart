@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterbuyandsell/api/common/ps_resource.dart';
+import 'package:flutterbuyandsell/constant/android_ios_storage.dart';
 import 'package:flutterbuyandsell/provider/user/user_provider.dart';
 import 'package:flutterbuyandsell/ui/payment/button_widget.dart';
 import 'package:flutterbuyandsell/ui/payment/switch_widget.dart';
@@ -11,12 +13,14 @@ import 'package:flutterbuyandsell/ui/payment/vendor_widget.dart';
 import 'package:flutterbuyandsell/viewobject/holder/profile_update_view_holder.dart';
 import 'package:flutterbuyandsell/viewobject/user.dart';
 import 'package:rave_flutter/rave_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class HomeWidget extends StatefulWidget {
   final double amount;
   final String status;
   final String userId;
-  HomeWidget({this.amount, this.status, this.userId});
+  final Function paymentStatus;
+  HomeWidget({this.amount, this.status, this.userId, this.paymentStatus});
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
@@ -33,14 +37,14 @@ class _HomeWidgetState extends State<HomeWidget> {
   bool acceptGhMMPayments = false;
   bool acceptUgMMPayments = false;
   bool acceptMMFrancophonePayments = false;
-  bool live = false;
+  bool live = true;
   bool preAuthCharge = false;
   bool addSubAccounts = false;
   List<SubAccount> subAccounts = [];
   String email;
   double amount;
-  String publicKey = "FLWPUBK_TEST-5a602e4f7a91defa7af34d24fd846c60-X";
-  String encryptionKey = "FLWSECK_TESTeb1e163beca1";
+  String publicKey = "FLWPUBK-16b3863e9401b6cb88478ffe90104e53-X";
+  String encryptionKey = "66426bd38db5cd35b539565e";
   String txRef;
   String orderRef;
   String narration;
@@ -176,7 +180,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                   ),
                 ),
-                Button(text: 'Start Payment', onPressed: validateInputs)
+                Button(text: 'Start Payment', onPressed: validateInputs),
               ],
             ),
           ),
@@ -262,17 +266,23 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Future postData(String premium) async {
-    final ProfilePremiumUpdateParameterHolder profileUpdateParameterHolder =
-        ProfilePremiumUpdateParameterHolder(
-      userId: widget.userId,
-      premium: widget.status,
+    final http.Response response = await http.post(
+      'https://us-central1-database-664f5.cloudfunctions.net/api/v1/update/premium',
+      body: {
+        'user_id': widget.userId,
+        'premium': premium,
+      },
     );
-    final PsResource<User> _apiStatus =
-        await userProvider.postPremium(profileUpdateParameterHolder.toMap());
-    if (_apiStatus.data != null) {
-      // progressDialog.dismiss();
-      print('${_apiStatus.data}');
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      AndroidIosStorage().setItem('buy', premium);
       Navigator.of(context).pop();
+      return response;
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
     }
   }
 
@@ -312,6 +322,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     scaffoldKey.currentState
         .showSnackBar(SnackBar(content: Text(response?.message)));
     if (response.status == RaveStatus.success) {
+      widget.paymentStatus(response);
       postData(widget.status);
     }
   }

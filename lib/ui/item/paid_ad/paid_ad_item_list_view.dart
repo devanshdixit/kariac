@@ -1,4 +1,5 @@
 import 'package:flutterbuyandsell/api/common/ps_resource.dart';
+import 'package:flutterbuyandsell/constant/android_ios_storage.dart';
 import 'package:flutterbuyandsell/constant/ps_constants.dart';
 import 'package:flutterbuyandsell/constant/ps_dimens.dart';
 import 'package:flutterbuyandsell/constant/route_paths.dart';
@@ -6,16 +7,13 @@ import 'package:flutterbuyandsell/provider/product/paid_id_item_provider.dart';
 import 'package:flutterbuyandsell/provider/user/user_provider.dart';
 import 'package:flutterbuyandsell/repository/paid_ad_item_repository.dart';
 import 'package:flutterbuyandsell/ui/common/ps_ui_widget.dart';
+import 'package:flutterbuyandsell/ui/dashboard/core/dashboard_view.dart';
 import 'package:flutterbuyandsell/ui/item/paid_ad/paid_ad_item_vertical_list_item.dart';
 import 'package:flutterbuyandsell/ui/payment/payment.dart';
 import 'package:flutterbuyandsell/viewobject/common/ps_value_holder.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterbuyandsell/viewobject/holder/intent_holder/product_detail_intent_holder.dart';
-import 'package:flutterbuyandsell/viewobject/holder/profile_update_view_holder.dart';
-import 'package:flutterbuyandsell/viewobject/user.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class PaidAdItemListView extends StatefulWidget {
@@ -45,8 +43,27 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
         _paidAdItemProvider.nextPaidAdItemList(psValueHolder.loginUserId);
       }
     });
-
+    getData();
     super.initState();
+  }
+
+  void getData() {
+    AndroidIosStorage().getItem('buy').then((value) {
+      print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+      setState(() {
+        if (value != null) {
+          value == sgold
+              ? buy1 = paid
+              : value == sdiamond
+                  ? buy2 = paid
+                  : value == splatinum
+                      ? buy3 = paid
+                      : value == srubbi
+                          ? buy4 = paid
+                          : () {};
+        }
+      });
+    });
   }
 
   double amount;
@@ -54,14 +71,19 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
   UserProvider userProvider;
 
   String gold = '4,999',
+      paid = 'Paid',
       diamond = '9,999',
       platinum = '19,999',
       rubbi = '59,999',
+      sgold = 'Gold',
+      sdiamond = 'Diamond',
+      splatinum = 'Platinum',
+      srubbi = 'Rubbi',
       ncur = 'assets/images/ncur.png';
   PaidAdItemRepository repo1;
   PsValueHolder psValueHolder;
   dynamic data;
-
+  String buy1 = 'Buy Now', buy2 = 'Buy Now', buy3 = 'Buy Now', buy4 = 'Buy Now';
   String userId = '';
   @override
   Widget build(BuildContext context) {
@@ -76,17 +98,22 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
     //     child:
 
     Future postData(String premium) async {
-      userId = userProvider.user.data.userId;
-      final ProfilePremiumUpdateParameterHolder profileUpdateParameterHolder =
-          ProfilePremiumUpdateParameterHolder(
-        userId: userProvider.user.data.userId,
-        premium: premium,
+      final http.Response response = await http.post(
+        'https://us-central1-database-664f5.cloudfunctions.net/api/v1/update/premium',
+        body: {
+          'user_id': psValueHolder.loginUserId,
+          'premium': premium,
+        },
       );
-      final PsResource<User> _apiStatus =
-          await userProvider.postPremium(profileUpdateParameterHolder.toMap());
-      if (_apiStatus.data != null) {
-        // progressDialog.dismiss();
-        print('${_apiStatus.data}');
+      if (response.statusCode == 200) {
+        // If the server did return a 201 CREATED response,
+        // then parse the JSON.
+        Navigator.of(context).pop();
+        return response;
+      } else {
+        // If the server did not return a 201 CREATED response,
+        // then throw an exception.
+        throw Exception('Failed to load album');
       }
     }
 
@@ -207,7 +234,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Gold',
+                                      sgold,
                                       style: TextStyle(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold,
@@ -237,7 +264,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                     RaisedButton(
                                       color: Colors.red,
                                       child: Text(
-                                        'Buy Now',
+                                        buy1,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       onPressed: () {
@@ -249,8 +276,21 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                           MaterialPageRoute(
                                             builder: (context) => HomeWidget(
                                               amount: amount,
-                                              status: 'gold',
+                                              status: sgold,
                                               userId: psValueHolder.loginUserId,
+                                              paymentStatus:
+                                                  (dynamic response) {
+                                                setState(() {
+                                                  buy1 = 'Paid';
+                                                });
+
+                                                Navigator.push<
+                                                        MaterialPageRoute>(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DashboardView()));
+                                              },
                                             ),
                                           ),
                                         );
@@ -289,7 +329,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Diamond',
+                                      sdiamond,
                                       style: TextStyle(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold,
@@ -319,7 +359,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                     RaisedButton(
                                       color: Colors.red,
                                       child: Text(
-                                        'Buy Now',
+                                        buy2,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       onPressed: () {
@@ -331,6 +371,20 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                           MaterialPageRoute(
                                             builder: (context) => HomeWidget(
                                               amount: amount,
+                                              status: sdiamond,
+                                              userId: psValueHolder.loginUserId,
+                                              paymentStatus:
+                                                  (dynamic response) {
+                                                setState(() {
+                                                  buy2 = 'Paid';
+                                                });
+                                                Navigator.push<
+                                                        MaterialPageRoute>(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DashboardView()));
+                                              },
                                             ),
                                           ),
                                         );
@@ -358,7 +412,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Platinum',
+                                      splatinum,
                                       style: TextStyle(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold,
@@ -388,7 +442,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                     RaisedButton(
                                       color: Colors.red,
                                       child: Text(
-                                        'Buy Now',
+                                        buy3,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       onPressed: () {
@@ -400,6 +454,21 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                           MaterialPageRoute(
                                             builder: (context) => HomeWidget(
                                               amount: amount,
+                                              status: splatinum,
+                                              userId: psValueHolder.loginUserId,
+                                              paymentStatus:
+                                                  (dynamic response) {
+                                                setState(() {
+                                                  buy3 = 'Paid';
+                                                });
+
+                                                Navigator.push<
+                                                        MaterialPageRoute>(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DashboardView()));
+                                              },
                                             ),
                                           ),
                                         );
@@ -427,7 +496,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Rubbi',
+                                      srubbi,
                                       style: TextStyle(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold,
@@ -457,7 +526,7 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                     RaisedButton(
                                       color: Colors.red,
                                       child: Text(
-                                        'Buy Now',
+                                        buy4,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       onPressed: () {
@@ -469,6 +538,21 @@ class _PaidAdItemListView extends State<PaidAdItemListView>
                                           MaterialPageRoute(
                                             builder: (context) => HomeWidget(
                                               amount: amount,
+                                              status: srubbi,
+                                              userId: psValueHolder.loginUserId,
+                                              paymentStatus:
+                                                  (dynamic response) {
+                                                setState(() {
+                                                  buy4 = 'Paid';
+                                                });
+
+                                                Navigator.push<
+                                                        MaterialPageRoute>(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DashboardView()));
+                                              },
                                             ),
                                           ),
                                         );
