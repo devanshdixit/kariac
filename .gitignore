@@ -66,7 +66,7 @@ unlinked_spec.ds
 *.jks
 
 
-/kariac
+kariac
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
